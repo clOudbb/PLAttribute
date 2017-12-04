@@ -9,9 +9,6 @@
 #import "PLAttributeMaker.h"
 #import "PLAttributeCreater.h"
 
-NS_INLINE bool validValue(id value) {
-    return ![value isKindOfClass:[NSNull class]] && value;
-}
 
 @interface PLAttributeMaker ()
 @property (nonatomic, weak) UILabel *label;
@@ -25,13 +22,18 @@ NS_INLINE bool validValue(id value) {
 
 @implementation PLAttributeMaker
 
-- (instancetype)initWithLabel:(UILabel *)label
+- (instancetype)initWithView:(UIView *)control
 {
     self = [super init];
     if (self) {
-        self.label = label;
+        if ([control isKindOfClass:[UILabel class]]) {
+            self.label = (UILabel *)control;
+            self.tempAttributeString = [[NSMutableAttributedString alloc] initWithString:self.label.text];
+        } else if ([control isKindOfClass:[UITextView class]]) {
+            self.textView = (UITextView *)control;
+            self.tempAttributeString = [[NSMutableAttributedString alloc] initWithString:self.textView.text];
+        }
         self.attributeArray = [@[] mutableCopy];
-        self.tempAttributeString = [[NSMutableAttributedString alloc] initWithString:self.label.text];
         self.paragraphStyle = [NSMutableParagraphStyle new];
     }
     return self;
@@ -165,7 +167,16 @@ NS_INLINE bool validValue(id value) {
     return ^id(void) {
         NSAssert(_textView, @"this property only using textView");
         _textView.editable = false;
-        PLAttributeCreater *creater = [PLAttributeCreater attributeWithKey:NSLinkAttributeName value:[NSURL URLWithString:_tempAttributeString.string] range:NSMakeRange(0, _tempAttributeString.length)];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+        NSString *newUrlString = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                                                                        (CFStringRef)_tempAttributeString.string,
+                                                                                                        NULL,
+                                                                                                        (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                                                                        kCFStringEncodingUTF8));
+#pragma clang diagnostic pop
+        NSURL *url = [NSURL URLWithString:newUrlString];
+        PLAttributeCreater *creater = [PLAttributeCreater attributeWithKey:NSLinkAttributeName value:url range:NSMakeRange(0, _tempAttributeString.length)];
         [_attributeArray addObject:creater];
         return self;
     };
@@ -366,6 +377,7 @@ NS_INLINE bool validValue(id value) {
             [_tempAttributeString addAttribute:creater.attributeKey value:creater.value range:creater.range];
     }
     if (_label) { _label.attributedText = _tempAttributeString; }
+    if (_textView) { _textView.attributedText = _tempAttributeString; }
     return _attributeArray;
 }
 
@@ -381,6 +393,7 @@ NS_INLINE bool validValue(id value) {
         }];
     }];
     if (_label) { _label.attributedText = _tempAttributeString; }
+    if (_textView) { _textView.attributedText = _tempAttributeString; }
     _removeTask = false;
     _attributeArray = newAttrArray;
     return _attributeArray;
@@ -413,6 +426,7 @@ NS_INLINE bool validValue(id value) {
         }];
     }];
     if (_label) { _label.attributedText = _tempAttributeString; }
+    if (_textView) { _textView.attributedText = _tempAttributeString; }
     _attributeArray = newAttrArray;
     if (newAttrArray.count == 0) _attributeArray = [_updateSaveArray mutableCopy];
     return _attributeArray;

@@ -16,9 +16,9 @@
 		C621C2CF1FCE5B9F00CA3D71 /* PLAttributeDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C621C2CE1FCE5B9F00CA3D71 /* PLAttributeDemoTests.m */; };
 		C621C2DA1FCE5B9F00CA3D71 /* PLAttributeDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C621C2D91FCE5B9F00CA3D71 /* PLAttributeDemoUITests.m */; };
 		C621C2EB1FCE5C1F00CA3D71 /* PLAttributeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C621C2EA1FCE5C1F00CA3D71 /* PLAttributeManager.m */; };
-		C621C2EE1FCE5C3B00CA3D71 /* UILabel+PLAttr.m in Sources */ = {isa = PBXBuildFile; fileRef = C621C2ED1FCE5C3B00CA3D71 /* UILabel+PLAttr.m */; };
 		C621C2F11FCE5D1900CA3D71 /* PLAttributeMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = C621C2F01FCE5D1900CA3D71 /* PLAttributeMaker.m */; };
 		C621C2F41FCE620E00CA3D71 /* PLAttributeCreater.m in Sources */ = {isa = PBXBuildFile; fileRef = C621C2F31FCE620E00CA3D71 /* PLAttributeCreater.m */; };
+		C621C3021FD4EC8C00CA3D71 /* UIView+PLAttr.m in Sources */ = {isa = PBXBuildFile; fileRef = C621C3011FD4EC8C00CA3D71 /* UIView+PLAttr.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,13 +58,13 @@
 		C621C2E81FCE5C0D00CA3D71 /* PLAttribute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLAttribute.h; sourceTree = "<group>"; };
 		C621C2E91FCE5C1F00CA3D71 /* PLAttributeManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLAttributeManager.h; sourceTree = "<group>"; };
 		C621C2EA1FCE5C1F00CA3D71 /* PLAttributeManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PLAttributeManager.m; sourceTree = "<group>"; };
-		C621C2EC1FCE5C3B00CA3D71 /* UILabel+PLAttr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UILabel+PLAttr.h"; sourceTree = "<group>"; };
-		C621C2ED1FCE5C3B00CA3D71 /* UILabel+PLAttr.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UILabel+PLAttr.m"; sourceTree = "<group>"; };
 		C621C2EF1FCE5D1900CA3D71 /* PLAttributeMaker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLAttributeMaker.h; sourceTree = "<group>"; };
 		C621C2F01FCE5D1900CA3D71 /* PLAttributeMaker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PLAttributeMaker.m; sourceTree = "<group>"; };
 		C621C2F21FCE620E00CA3D71 /* PLAttributeCreater.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLAttributeCreater.h; sourceTree = "<group>"; };
 		C621C2F31FCE620E00CA3D71 /* PLAttributeCreater.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PLAttributeCreater.m; sourceTree = "<group>"; };
 		C621C2F51FCE8F0000CA3D71 /* PLAttributeMakerKey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLAttributeMakerKey.h; sourceTree = "<group>"; };
+		C621C3001FD4EC8C00CA3D71 /* UIView+PLAttr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+PLAttr.h"; sourceTree = "<group>"; };
+		C621C3011FD4EC8C00CA3D71 /* UIView+PLAttr.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+PLAttr.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,8 +158,8 @@
 				C621C2F01FCE5D1900CA3D71 /* PLAttributeMaker.m */,
 				C621C2F21FCE620E00CA3D71 /* PLAttributeCreater.h */,
 				C621C2F31FCE620E00CA3D71 /* PLAttributeCreater.m */,
-				C621C2EC1FCE5C3B00CA3D71 /* UILabel+PLAttr.h */,
-				C621C2ED1FCE5C3B00CA3D71 /* UILabel+PLAttr.m */,
+				C621C3001FD4EC8C00CA3D71 /* UIView+PLAttr.h */,
+				C621C3011FD4EC8C00CA3D71 /* UIView+PLAttr.m */,
 			);
 			path = PLAttribute;
 			sourceTree = "<group>";
@@ -300,10 +300,10 @@
 				C621C2F41FCE620E00CA3D71 /* PLAttributeCreater.m in Sources */,
 				C621C2BA1FCE5B9F00CA3D71 /* ViewController.m in Sources */,
 				C621C2C51FCE5B9F00CA3D71 /* main.m in Sources */,
-				C621C2EE1FCE5C3B00CA3D71 /* UILabel+PLAttr.m in Sources */,
 				C621C2F11FCE5D1900CA3D71 /* PLAttributeMaker.m in Sources */,
 				C621C2EB1FCE5C1F00CA3D71 /* PLAttributeManager.m in Sources */,
 				C621C2B71FCE5B9F00CA3D71 /* AppDelegate.m in Sources */,
+				C621C3021FD4EC8C00CA3D71 /* UIView+PLAttr.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -468,6 +468,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = PLAttributeDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.PLAttribute.pl.PLAttributeDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -481,6 +482,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = PLAttributeDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.PLAttribute.pl.PLAttributeDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";

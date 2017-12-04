@@ -10,6 +10,6 @@
 #define PLAttribute_h
 
 #import "PLAttributeManager.h"
-#import "UILabel+PLAttr.h"
+#import "UIView+PLAttr.h"
 
 #endif /* PLAttribute_h */

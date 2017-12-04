@@ -21,4 +21,13 @@ typedef NS_ENUM(NSInteger, PLVerticalGlyphStyle)
     PLVerticalGlyphStyleVertical = 1,
 };
 
+FOUNDATION_STATIC_INLINE bool validString(NSString *string)
+{
+    return ([string isKindOfClass:[NSString class]] && string.length > 0 && ![string isEqualToString:@""]);
+}
+
+NS_INLINE bool validValue(id value) {
+    return ![value isKindOfClass:[NSNull class]] && value;
+}
+
 #endif /* PLAttributeMakerKey_h */

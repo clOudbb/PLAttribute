@@ -89,7 +89,7 @@
 @property (nonatomic, copy, readonly) PLAttributeMaker *with;
 
 
-- (instancetype)initWithLabel:(UILabel *)label;
+- (instancetype)initWithView:(UIView *)control;
 - (NSArray *)install;
 - (NSArray *)update;
 - (void)save;

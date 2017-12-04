@@ -1,32 +1,36 @@
 //
-//  UILabel+PLAttr.m
+//  UIView+PLAttr.m
 //  PLAttributeDemo
 //
-//  Created by 张征鸿 on 2017/11/29.
+//  Created by 张征鸿 on 2017/12/4.
 //  Copyright © 2017年 张征鸿. All rights reserved.
 //
 
-#import "UILabel+PLAttr.h"
+#import "UIView+PLAttr.h"
+#import "PLAttributeMakerKey.h"
 @import ObjectiveC;
 
-FOUNDATION_STATIC_INLINE bool validString(NSString *string)
-{
-    return ([string isKindOfClass:[NSString class]] && string.length > 0 && ![string isEqualToString:@""]);
-}
-
-@implementation UILabel (PLAttr)
+@implementation UIView (PLAttr)
 
 - (NSArray *)pl_makeAttr:(NSString *)string maker:(void (^)(PLAttributeMaker *))maker
 {
     NSAssert(validString(string), @"string cannot be null");
-    self.make = [[PLAttributeMaker alloc] initWithLabel:self];
+    self.make = [[PLAttributeMaker alloc] initWithView:self];
     maker(self.make);
     return [self.make install];
 }
 
 - (NSArray *)pl_makeAttrWithMaker:(void (^)(PLAttributeMaker * _Nullable))maker
 {
-    return [self pl_makeAttr:self.text maker:maker];
+    if ([self isKindOfClass:[UILabel class]]) {
+        UILabel *_label = (UILabel *)self;
+        return [self pl_makeAttr:_label.text maker:maker];
+    } else if ([self isKindOfClass:[UITextView class]]) {
+        UITextView *_textView = (UITextView *)self;
+        return [self pl_makeAttr:_textView.text maker:maker];
+    }
+    NSAssert(!self, @"control cannot be label or textview");
+    return @[];
 }
 
 - (NSArray *)pl_updateAttrWithMaker:(void (^)(PLAttributeMaker * _Nullable))maker
@@ -53,5 +57,6 @@ FOUNDATION_STATIC_INLINE bool validString(NSString *string)
 {
     return objc_getAssociatedObject(self, _cmd);
 }
+
 
 @end

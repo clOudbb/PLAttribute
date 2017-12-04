@@ -10,6 +10,7 @@
 #import "PLAttribute.h"
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *label;
+@property (weak, nonatomic) IBOutlet UITextView *textView;
 
 @end
 
@@ -26,6 +27,15 @@
         make.strokeWidth(NSUnderlineStyleSingle);
         make.lineSpace(5);
     }];
+    
+    [self.textView pl_makeAttrWithMaker:^(PLAttributeMaker * _Nullable make) {
+        make.font([UIFont systemFontOfSize:18])
+        .link();
+    }];
+    
+//    [self.textView pl_updateAttrWithMaker:^(PLAttributeMaker * _Nullable update) {
+//        update.font([UIFont systemFontOfSize:28]);
+//    }];
 
 //    [self.label pl_updateAttrWithMaker:^(PLAttributeMaker * _Nullable update) {
 //        update.lineSpace(20);
