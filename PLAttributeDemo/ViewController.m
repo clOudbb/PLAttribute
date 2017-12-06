@@ -26,12 +26,22 @@
         make.strokeColor([UIColor blueColor]);
         make.strokeWidth(NSUnderlineStyleSingle);
         make.lineSpace(5);
+        make.lineBreakMode(NSLineBreakByTruncatingTail);
     }];
     
-    [self.textView pl_makeAttrWithMaker:^(PLAttributeMaker * _Nullable make) {
-        make.font([UIFont systemFontOfSize:18])
-        .link();
-    }];
+    CGSize size = self.label.make.boundingSize(CGSizeMake(200, 0));
+    UIView *view = [UIView new];
+    view.frame = (CGRect){0, 0, size};
+    view.center = (CGPoint){self.view.center.x, self.view.center.y - 150};
+    view.backgroundColor = [UIColor orangeColor];
+    view.alpha = 0.5;
+    [self.view addSubview:view];
+    [self.view sendSubviewToBack:view];
+    
+//    [self.textView pl_makeAttrWithMaker:^(PLAttributeMaker * _Nullable make) {
+//        make.font([UIFont systemFontOfSize:18])
+//        .link().range(NSMakeRange(0, 10));
+//    }];
     
 //    [self.textView pl_updateAttrWithMaker:^(PLAttributeMaker * _Nullable update) {
 //        update.font([UIFont systemFontOfSize:28]);

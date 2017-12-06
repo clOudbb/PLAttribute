@@ -8,7 +8,7 @@
 
 #import "PLAttributeMaker.h"
 #import "PLAttributeCreater.h"
-
+@import CoreText;
 
 @interface PLAttributeMaker ()
 @property (nonatomic, weak) UILabel *label;
@@ -18,6 +18,8 @@
 @property (nonatomic, strong) NSMutableAttributedString *tempAttributeString;
 @property (nonatomic, strong) NSMutableParagraphStyle *paragraphStyle;
 @property (nonatomic, strong) NSMutableParagraphStyle *orignalStyle;
+
+@property (nonatomic, copy) CGSize (^boundingS)(CGSize size);
 @end
 
 @implementation PLAttributeMaker
@@ -360,24 +362,69 @@
         return self;
     };
 }
+
+- (CGSize (^)(CGSize))boundingSize
+{
+    return ^CGSize(CGSize size) {
+        return self.boundingS(size);
+    };
+}
+
 #pragma mark -
 - (PLAttributeMaker *)with { return self; }
-
-
 
 - (NSArray *)install
 {
     if (!_attributeArray) return @[];
+    NSMutableParagraphStyle *style = nil;
+    bool _haveFontSize = false;
     if (_paragraphStyle)
     {
         PLAttributeCreater *para = [PLAttributeCreater attributeWithKey:NSParagraphStyleAttributeName value:_paragraphStyle range:NSMakeRange(0, _tempAttributeString.length)];
         [_attributeArray addObject:para];
     }
     for (PLAttributeCreater *creater in _attributeArray) {
-            [_tempAttributeString addAttribute:creater.attributeKey value:creater.value range:creater.range];
+        [_tempAttributeString addAttribute:creater.attributeKey value:creater.value range:creater.range];
+        if ([creater.attributeKey isEqualToString:NSParagraphStyleAttributeName]) {
+            style = [creater.value mutableCopy];
+            style.lineBreakMode = NSLineBreakByWordWrapping;
+        }
+        if ([creater.attributeKey isEqualToString:NSFontAttributeName]) {
+            _haveFontSize = true;
+        }
     }
-    if (_label) { _label.attributedText = _tempAttributeString; }
-    if (_textView) { _textView.attributedText = _tempAttributeString; }
+    CGSize boundSize = CGSizeZero;
+    if (_label) {
+        _label.attributedText = _tempAttributeString;
+        boundSize = (CGSize){_label.frame.size.width, MAXFLOAT};
+    }
+    if (_textView) {
+        _textView.attributedText = _tempAttributeString;
+        boundSize = (CGSize){_textView.frame.size.width, MAXFLOAT};
+    }
+    
+    NSMutableAttributedString *tempStr = [_tempAttributeString mutableCopy];
+    if (style) {
+        //由于计算文本是lineBreakMode 为其他模式时 会导致只计算一行高度，重新copy一份计算
+        [tempStr removeAttribute:NSParagraphStyleAttributeName range:NSMakeRange(0, tempStr.length)];
+        [tempStr addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, tempStr.length)];
+    }
+    if (!_haveFontSize) {
+        //计算高度需要设定字体大小，否则会以系统默认计算不准确
+        if (_label) {
+            [tempStr addAttribute:NSFontAttributeName value:self.label.font range:NSMakeRange(0, tempStr.length)];
+        } else if (_textView) {
+            [tempStr addAttribute:NSFontAttributeName value:self.textView.font range:NSMakeRange(0, tempStr.length)];
+        }
+    }
+    
+    self.boundingS = ^CGSize(CGSize size) {
+        CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((__bridge CFAttributedStringRef)tempStr);
+        CGSize fitSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, [tempStr length]), NULL, boundSize, NULL);
+        CFRelease(framesetter);
+        return fitSize;
+    };
+    
     return _attributeArray;
 }
 

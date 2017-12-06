@@ -88,6 +88,7 @@
 /** 致敬Masonry */
 @property (nonatomic, copy, readonly) PLAttributeMaker *with;
 
+@property (nonatomic, copy, readonly) CGSize (^boundingSize)(CGSize size);
 
 - (instancetype)initWithView:(UIView *)control;
 - (NSArray *)install;
