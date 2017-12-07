@@ -29,7 +29,7 @@
         UITextView *_textView = (UITextView *)self;
         return [self pl_makeAttr:_textView.text maker:maker];
     }
-    NSAssert(!self, @"control cannot be label or textview");
+    NSAssert(!self, @"control must be label or textview");
     return @[];
 }
 

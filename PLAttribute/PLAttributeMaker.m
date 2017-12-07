@@ -357,7 +357,7 @@
 {
     return ^id(NSRange range) {
         for (PLAttributeCreater *c in _attributeArray) {
-            c.range = NSMakeRange(0, _tempAttributeString.length);
+            c.range = range;
         }
         return self;
     };

@@ -87,7 +87,9 @@
 @property (nonatomic, assign, readonly) BOOL removeTask;
 /** 致敬Masonry */
 @property (nonatomic, copy, readonly) PLAttributeMaker *with;
-
+/**
+ * 目前局部字体不一致计算高度不够准确
+ */
 @property (nonatomic, copy, readonly) CGSize (^boundingSize)(CGSize size);
 
 - (instancetype)initWithView:(UIView *)control;

@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "PLAttribute.h"
 @interface ViewController ()
+
 @property (weak, nonatomic) IBOutlet UILabel *label;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 
@@ -21,13 +22,20 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     [self.label pl_makeAttrWithMaker:^(PLAttributeMaker * _Nullable make) {
-        make.fontColor([UIColor orangeColor]).range(NSMakeRange(0, 10));
-        make.fontColor([UIColor orangeColor]).range(NSMakeRange(15, 20));
-        make.strokeColor([UIColor blueColor]);
-        make.strokeWidth(NSUnderlineStyleSingle);
-        make.lineSpace(5);
-        make.lineBreakMode(NSLineBreakByTruncatingTail);
+        make
+        .fontColor([UIColor orangeColor])
+        .strikethroughStyle(NSUnderlineStyleSingle)
+        .strikethroughColor([UIColor blueColor]);
     }];
+
+//    [self.label pl_makeAttrWithMaker:^(PLAttributeMaker * _Nullable make) {
+//        make.fontColor([UIColor orangeColor]).range(NSMakeRange(0, 10));
+//        make.fontColor([UIColor orangeColor]).range(NSMakeRange(15, 20));
+//        make.strokeColor([UIColor blueColor]);
+//        make.strokeWidth(NSUnderlineStyleSingle);
+//        make.lineSpace(5);
+//        make.lineBreakMode(NSLineBreakByTruncatingTail);
+//    }];
     
     CGSize size = self.label.make.boundingSize(CGSizeMake(200, 0));
     UIView *view = [UIView new];
