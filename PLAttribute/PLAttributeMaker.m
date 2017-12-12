@@ -20,6 +20,7 @@
 @property (nonatomic, strong) NSMutableParagraphStyle *orignalStyle;
 
 @property (nonatomic, copy) CGSize (^boundingS)(CGSize size);
+@property (nonatomic, assign) BOOL removeTask;
 @end
 
 @implementation PLAttributeMaker
@@ -172,10 +173,10 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
         NSString *newUrlString = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-                                                                                                        (CFStringRef)_tempAttributeString.string,
-                                                                                                        NULL,
-                                                                                                        (CFStringRef)@"!*'();:@&=+$,/?%#[]",
-                                                                                                        kCFStringEncodingUTF8));
+                                                                                                       (CFStringRef)_tempAttributeString.string,
+                                                                                                       NULL,
+                                                                                                       (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                                                                       kCFStringEncodingUTF8));
 #pragma clang diagnostic pop
         NSURL *url = [NSURL URLWithString:newUrlString];
         PLAttributeCreater *creater = [PLAttributeCreater attributeWithKey:NSLinkAttributeName value:url range:NSMakeRange(0, _tempAttributeString.length)];
@@ -370,6 +371,23 @@
     };
 }
 
+- (PLAttributeMaker *(^)(NSString *))match
+{
+    return ^id(NSString *string) {
+        PLAttributeCreater *creater = _attributeArray.lastObject;
+        NSString *tempStr = _tempAttributeString.string;
+        NSMutableArray *results = [@[] mutableCopy];
+        NSRange searchRange = NSMakeRange(0, tempStr.length);
+        NSRange range;
+        while ((range = [tempStr rangeOfString:string options:0 range:searchRange]).location != NSNotFound) {
+            [results addObject:[NSValue valueWithRange:range]];
+            searchRange = NSMakeRange(NSMaxRange(range), tempStr.length - NSMaxRange(range));
+        }
+        creater.matchRange = results;
+        return self;
+    };
+}
+
 #pragma mark -
 - (PLAttributeMaker *)with { return self; }
 
@@ -384,6 +402,15 @@
         [_attributeArray addObject:para];
     }
     for (PLAttributeCreater *creater in _attributeArray) {
+        if (creater.matchRange) {
+            for (NSValue *rangeValue in creater.matchRange) {
+                @autoreleasepool {
+                    NSRange range = [rangeValue rangeValue];
+                    [_tempAttributeString addAttribute:creater.attributeKey value:creater.value range:range];
+                }
+            }
+            continue;
+        }
         [_tempAttributeString addAttribute:creater.attributeKey value:creater.value range:creater.range];
         if ([creater.attributeKey isEqualToString:NSParagraphStyleAttributeName]) {
             style = [creater.value mutableCopy];
@@ -444,7 +471,7 @@
     _removeTask = false;
     _attributeArray = newAttrArray;
     return _attributeArray;
- }
+}
 
 - (void)save
 {

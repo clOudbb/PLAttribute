@@ -14,6 +14,7 @@
 @property (nonatomic, strong) NSAttributedStringKey attributeKey;
 @property (nonatomic, strong) id value;
 @property (nonatomic, assign) NSRange range;
+@property (nonatomic, strong) NSMutableArray <NSValue *>*matchRange;
 
 + (instancetype)attributeWithKey:(NSAttributedStringKey)attributeKey
                            value:(id)value

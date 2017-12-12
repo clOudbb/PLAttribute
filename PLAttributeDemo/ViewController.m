@@ -23,7 +23,8 @@
     
     [self.label pl_makeAttrWithMaker:^(PLAttributeMaker * _Nullable make) {
         make
-        .fontColor([UIColor orangeColor])
+        .fontColor([UIColor orangeColor]).match(@"React")
+        .fontColor([UIColor blueColor]).match(@"Redux")
         .strikethroughStyle(NSUnderlineStyleSingle)
         .strikethroughColor([UIColor blueColor]);
     }];

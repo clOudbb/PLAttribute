@@ -74,6 +74,7 @@
 @property (nonatomic, copy, readonly) PLAttributeMaker *(^alignment)(NSTextAlignment alignment);
 @property (nonatomic, copy, readonly) PLAttributeMaker *(^lineBreakMode)(NSLineBreakMode mode); /**< 分割模式 */
 @property (nonatomic, copy, readonly) PLAttributeMaker *(^baseWritingDirection)(NSWritingDirection direction);  /**< 段落方向 */
+
 #pragma mark -
 /**
  * 描绘一条链上单条属性
@@ -84,13 +85,15 @@
  */
 @property (nonatomic, copy, readonly) PLAttributeMaker *(^all)(NSRange range);
 
-@property (nonatomic, assign, readonly) BOOL removeTask;
 /** 致敬Masonry */
 @property (nonatomic, copy, readonly) PLAttributeMaker *with;
 /**
+ * If you set range font size, bounding size maybe calculation error. waiting fix
  * 目前局部字体不一致计算高度不够准确
  */
 @property (nonatomic, copy, readonly) CGSize (^boundingSize)(CGSize size);
+
+@property (nonatomic, copy, readonly) PLAttributeMaker *(^match)(NSString *replaceStr);
 
 - (instancetype)initWithView:(UIView *)control;
 - (NSArray *)install;
