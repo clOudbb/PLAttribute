@@ -21,6 +21,12 @@ typedef NS_ENUM(NSInteger, PLVerticalGlyphStyle)
     PLVerticalGlyphStyleVertical = 1,
 };
 
+typedef NS_ENUM(NSInteger, PLLigatureAttributeStyle)
+{
+    PLLigatureAttributeStyleNone = 0,
+    PLLigatureAttributeStyleDefault = 1
+};
+
 FOUNDATION_STATIC_INLINE bool validString(NSString *string)
 {
     return ([string isKindOfClass:[NSString class]] && string.length > 0 && ![string isEqualToString:@""]);

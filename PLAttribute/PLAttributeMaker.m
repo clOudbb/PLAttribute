@@ -221,6 +221,15 @@
     };
 }
 
+- (PLAttributeMaker *(^)(PLLigatureAttributeStyle))ligature
+{
+    return ^id(PLLigatureAttributeStyle style) {
+        PLAttributeCreater *creater = [PLAttributeCreater attributeWithKey:NSLigatureAttributeName value:@(style) range:NSMakeRange(0, _tempAttributeString.length)];;
+        [_attributeArray addObject:creater];
+        return self;
+    };
+}
+
 #pragma mark - Paragraph Style
 
 - (PLAttributeMaker *(^)(NSLineBreakMode))lineBreakMode

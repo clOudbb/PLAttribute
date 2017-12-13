@@ -74,6 +74,7 @@
 @property (nonatomic, copy, readonly) PLAttributeMaker *(^alignment)(NSTextAlignment alignment);
 @property (nonatomic, copy, readonly) PLAttributeMaker *(^lineBreakMode)(NSLineBreakMode mode); /**< 分割模式 */
 @property (nonatomic, copy, readonly) PLAttributeMaker *(^baseWritingDirection)(NSWritingDirection direction);  /**< 段落方向 */
+@property (nonatomic, copy, readonly) PLAttributeMaker *(^ligature)(PLLigatureAttributeStyle style);  /**< 设定连体字符 */
 
 #pragma mark -
 /**
