@@ -3,10 +3,11 @@
  If you just want simple fast using attribute, try PLAttribute
  
 # Feature
-Support most attribute. 
-|  AttributeName                      |        Chinese                      |
-| ----------------------------------- | ----------------------------------- |
-| `NSFontAttributeName`               | `字体`                               |
+> Support most attribute. 
+
+| AttributeName Key                   |  Chinese                           |
+| ----------------------------------- | ------------------------------------------------------ |
+| `NSFontAttributeName`               | `字体`                              |
 | `NSParagraphStyleAttributeName`     | `整体样式`                           |
 | `NSForegroundColorAttributeName`    | `字体颜色`                           |
 | `NSBackgroundColorAttributeName`    | `背景颜色`                           |
