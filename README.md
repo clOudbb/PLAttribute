@@ -2,8 +2,11 @@
  A simple use attribute framework.
  If you just want simple fast using attribute, try PLAttribute
  
+ 一个简单易用的富文本框架
+ 如果你只是想快速简单的上手使用富文本，使用PLAttribute吧
 # Feature
 > Support most attribute. 
+> 支持大部分富文本属性
 
 | AttributeName Key                   |  Chinese                           |
 | ----------------------------------- | ------------------------------------------------------ |
@@ -32,7 +35,9 @@
 # Usage
 Using like popular framework [Masonry](https://github.com/SnapKit/Masonry)
 
-### set Attribute
+如果你使用过有名的Masonry框架，那么你应该会很容易使用PLAttribute
+
+### Set Attribute
 Set fontColor. default all range
 ```objc
 [self.label pl_makeAttrWithMaker:^(PLAttributeMaker * _Nullable make) {
@@ -53,5 +58,25 @@ And, you can code this
    .font([UIFont systemFontOfSize:17])
    .strokeColor([UIColor blueColor])
    .strikethroughStyle(NSUnderlineStyleSingle);
+}];
+```
+
+If you want set attributes of a chain.
+```objc
+[self.label pl_makeAttrWithMaker:^(PLAttributeMaker * _Nullable make) {
+   make
+   .obliqueness(M_PI_4)
+   .strokeColor([UIColor blueColor])
+   .strokeWidth(1)
+   .all(NSMakeRange(10, 20));
+}];
+```
+
+If you want match some content.
+```objc
+[self.label pl_makeAttrWithMaker:^(PLAttributeMaker * _Nullable make) {
+   make
+   .fontColor([UIColor orangeColor]).match(@"React")
+   .fontColor([UIColor blueColor]).match(@"Redux");
 }];
 ```
