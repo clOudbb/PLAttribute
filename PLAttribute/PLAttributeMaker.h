@@ -31,6 +31,9 @@
 @property (nonatomic, copy, readonly) PLAttributeMaker *(^obliqueness)(CGFloat angle);  /**< 倾斜度 */
 
 @property (nonatomic, copy, readonly) PLAttributeMaker *(^verticalGlyph)(PLVerticalGlyphStyle style);  /**< 文本横竖排版 */
+@property (nonatomic, copy, readonly) PLAttributeMaker *(^ligature)(PLLigatureAttributeStyle style);  /**< 设定连体字符 */
+@property (nonatomic, copy, readonly) PLAttributeMaker *(^attachment)(NSTextAttachment *attachment, NSString *beforeContent);
+
 /**
  *  值必须为以下组合的数组
     LRE: NSWritingDirectionLeftToRight|NSWritingDirectionEmbedding,
@@ -74,7 +77,6 @@
 @property (nonatomic, copy, readonly) PLAttributeMaker *(^alignment)(NSTextAlignment alignment);
 @property (nonatomic, copy, readonly) PLAttributeMaker *(^lineBreakMode)(NSLineBreakMode mode); /**< 分割模式 */
 @property (nonatomic, copy, readonly) PLAttributeMaker *(^baseWritingDirection)(NSWritingDirection direction);  /**< 段落方向 */
-@property (nonatomic, copy, readonly) PLAttributeMaker *(^ligature)(PLLigatureAttributeStyle style);  /**< 设定连体字符 */
 
 #pragma mark -
 /**
@@ -89,7 +91,7 @@
 /** 致敬Masonry */
 @property (nonatomic, copy, readonly) PLAttributeMaker *with;
 /**
- * If you set range font size, bounding size maybe calculation error. waiting fix
+ * If you set range fontSize and attachment, bounding size maybe calculation error. waiting fix
  * 目前局部字体不一致计算高度不够准确
  */
 @property (nonatomic, copy, readonly) CGSize (^boundingSize)(CGSize size);

@@ -230,6 +230,15 @@
     };
 }
 
+- (PLAttributeMaker *(^)(NSTextAttachment *, NSString *))attachment
+{
+    return ^id(NSTextAttachment *attach, NSString *afterContent) {
+        PLAttributeCreater *creater = [PLAttributeCreater createrWithAfterContent:afterContent attributeString:_tempAttributeString key:NSAttachmentAttributeName value:attach];
+        [_attributeArray addObject:creater];
+        return self;
+    };
+}
+
 #pragma mark - Paragraph Style
 
 - (PLAttributeMaker *(^)(NSLineBreakMode))lineBreakMode
@@ -420,6 +429,15 @@
             }
             continue;
         }
+        
+        if ([creater.attributeKey isEqualToString:NSAttachmentAttributeName]) {
+            //图文混排
+            NSMutableAttributedString *str = [_tempAttributeString mutableCopy];
+            NSAttributedString *attStr = [NSMutableAttributedString attributedStringWithAttachment:creater.value];
+            [str insertAttributedString:attStr atIndex:creater.attachmentAfterContentIndex];
+            _tempAttributeString = str;
+        }
+        
         [_tempAttributeString addAttribute:creater.attributeKey value:creater.value range:creater.range];
         if ([creater.attributeKey isEqualToString:NSParagraphStyleAttributeName]) {
             style = [creater.value mutableCopy];

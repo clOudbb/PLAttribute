@@ -21,12 +21,18 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    NSTextAttachment *att = [NSTextAttachment new];
+    att.image = [UIImage imageNamed:@"兰空"];
+    att.bounds = (CGRect){0, 0, 20, 20};
     [self.label pl_makeAttrWithMaker:^(PLAttributeMaker * _Nullable make) {
         make
         .fontColor([UIColor orangeColor]).match(@"React")
-        .fontColor([UIColor blueColor]).match(@"Redux");
+        .fontColor([UIColor blueColor]).match(@"Redux")
+        .attachment(att, @"Redux");
     }];
+    
 
+    
 //    [self.label pl_makeAttrWithMaker:^(PLAttributeMaker * _Nullable make) {
 //        make.fontColor([UIColor orangeColor]).range(NSMakeRange(0, 10));
 //        make.fontColor([UIColor orangeColor]).range(NSMakeRange(15, 20));

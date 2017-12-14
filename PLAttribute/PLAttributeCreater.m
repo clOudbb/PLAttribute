@@ -22,11 +22,25 @@
     return creater;
 }
 
-- (instancetype)init
++ (instancetype)createrWithAfterContent:(NSString *)attachmentAfterContent
+                          attributeString:(NSMutableAttributedString *)attr
+                                      key:(NSAttributedStringKey)attributeKey
+                                    value:(id)value
+{
+    return [[PLAttributeCreater alloc] initWithAttachment:attachmentAfterContent attributeString:attr key:attributeKey value:value];
+}
+
+- (instancetype)initWithAttachment:(NSString *)attachmentAfterContent
+                      attributeString:(NSMutableAttributedString *)attr
+                                  key:(NSAttributedStringKey)attributeKey
+                                value:(id)value
 {
     self = [super init];
     if (self) {
-        
+        NSRange range = [attr.string rangeOfString:attachmentAfterContent];
+        _attachmentAfterContentIndex = range.location + range.length;
+        _attributeKey = attributeKey;
+        _value = value;
     }
     return self;
 }

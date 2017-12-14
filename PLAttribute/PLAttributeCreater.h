@@ -15,9 +15,13 @@
 @property (nonatomic, strong) id value;
 @property (nonatomic, assign) NSRange range;
 @property (nonatomic, strong) NSMutableArray <NSValue *>*matchRange;
+@property (nonatomic, assign, readonly) NSUInteger attachmentAfterContentIndex;
 
 + (instancetype)attributeWithKey:(NSAttributedStringKey)attributeKey
                            value:(id)value
                            range:(NSRange)range;
-
++ (instancetype)createrWithAfterContent:(NSString *)attachmentAfterContent
+                      attributeString:(NSMutableAttributedString *)attr
+                                  key:(NSAttributedStringKey)attributeKey
+                                value:(id)value;
 @end
