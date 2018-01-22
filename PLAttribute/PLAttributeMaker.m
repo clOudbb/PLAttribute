@@ -472,10 +472,14 @@
         }
     }
     
+    __weak __typeof__(self)weakSelf = self;
     self.boundingS = ^CGSize(CGSize size) {
-        CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((__bridge CFAttributedStringRef)tempStr);
-        CGSize fitSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, [tempStr length]), NULL, boundSize, NULL);
-        CFRelease(framesetter);
+//        CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((__bridge CFAttributedStringRef)tempStr);
+//        CGSize fitSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, [tempStr length]), NULL, boundSize, NULL);
+//        CFRelease(framesetter);
+        CGSize fitSize = CGSizeZero;
+        if (weakSelf.label) fitSize = [weakSelf.label sizeThatFits:size];
+        else if (weakSelf.textView) fitSize = [weakSelf.textView sizeThatFits:size];
         return fitSize;
     };
     

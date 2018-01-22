@@ -93,6 +93,7 @@
 /**
  * If you set range fontSize and attachment, bounding size maybe calculation error. waiting fix
  * 目前局部字体不一致计算高度不够准确
+ * 暂时使用sizeTofits来计算，但效率有影响，后续使用coreText来计算
  */
 @property (nonatomic, copy, readonly) CGSize (^boundingSize)(CGSize size);
 

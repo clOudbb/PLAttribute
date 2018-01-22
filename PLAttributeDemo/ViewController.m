@@ -28,7 +28,8 @@
         make
         .fontColor([UIColor orangeColor]).match(@"React")
         .fontColor([UIColor blueColor]).match(@"Redux")
-        .attachment(att, @"Redux");
+        .attachment(att, @"Redux")
+        .font([UIFont systemFontOfSize:30]).match(@"为了");
     }];
     
 
